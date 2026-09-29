@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://dol1530p0rpx5"]
+
+[ext_resource type="Script" uid="uid://b8kagdn5j1scx" path="res://Scripts/ClosestPointIn2d.cs" id="1_cu174"]
+
+[node name="Node2D" type="Node2D" unique_id=859209470 node_paths=PackedStringArray("point1", "point2")]
+script = ExtResource("1_cu174")
+point1 = NodePath("Marker2D")
+point2 = NodePath("Marker2D2")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=1876977113]
+position = Vector2(300, 239)
+
+[node name="Marker2D2" type="Marker2D" parent="." unique_id=2049281885]
+position = Vector2(840, 250)

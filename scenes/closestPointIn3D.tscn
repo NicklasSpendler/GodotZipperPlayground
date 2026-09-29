@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://b8mlnb5jmrhra"]
+
+[ext_resource type="Script" uid="uid://bc6quwkgrimtl" path="res://Scripts/GetClosestToLine3D.cs" id="1_t4fko"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t4fko"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_hw5ym"]
+sky_material = SubResource("ProceduralSkyMaterial_t4fko")
+
+[sub_resource type="Environment" id="Environment_h6dou"]
+background_mode = 2
+sky = SubResource("Sky_hw5ym")
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yi3jn"]
+albedo_color = Color(2.5268645e-07, 0.47648418, 0, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_t4fko"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9.795, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t4fko"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yi3jn"]
+material = SubResource("StandardMaterial3D_t4fko")
+size = Vector3(0.52368164, 0.29882813, 0.4658203)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8w1li"]
+shading_mode = 0
+albedo_color = Color(0, 0.73929507, 0.827222, 0.307)
+
+[sub_resource type="QuadMesh" id="QuadMesh_yi3jn"]
+material = SubResource("StandardMaterial3D_8w1li")
+size = Vector2(0.2, 0.2)
+
+[node name="Node3D" type="Node3D" unique_id=1312394045]
+
+[node name="Camera3D2" type="Camera3D" parent="." unique_id=270741650]
+transform = Transform3D(0.3392681, -0.25787374, 0.9046537, 0.03740391, 0.96462953, 0.26094264, -0.93994594, -0.054691922, 0.33691347, 5.3377447, 2.2938714, -2.5471368)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1516829099]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1485420301]
+environment = SubResource("Environment_h6dou")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=2135806873]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.012456268, -0.49176252, 0.003008008)
+size = Vector3(50, 1, 50)
+material = SubResource("StandardMaterial3D_yi3jn")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=58598958 node_paths=PackedStringArray("path", "follower")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.568469, 0)
+current = true
+script = ExtResource("1_t4fko")
+path = NodePath("../Path3D")
+follower = NodePath("../Path3D/PathFollow3D")
+
+[node name="Box 1" type="CSGBox3D" parent="." unique_id=881861923]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1044674, 1.2736968, -10.883728)
+
+[node name="Box 2" type="CSGBox3D" parent="." unique_id=1339165346]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.9044776, 1.4003394, -10.883728)
+
+[node name="Path3D" type="Path3D" parent="." unique_id=1482192428]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.0072956, 1.3910407, -9.482072)
+curve = SubResource("Curve3D_t4fko")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=1410989488]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+loop = false
+
+[node name="Zipper" type="MeshInstance3D" parent="Path3D/PathFollow3D" unique_id=158778229]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.43549156, 0, 0)
+mesh = SubResource("BoxMesh_yi3jn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1015490481]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.477961, 0.43793863, -10.361575)
+mesh = SubResource("QuadMesh_yi3jn")
